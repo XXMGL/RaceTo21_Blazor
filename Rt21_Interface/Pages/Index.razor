@@ -1,0 +1,57 @@
+﻿@page "/"
+@inject NavigationManager NavigationManager
+@using RaceTo21
+<style>
+</style>
+<h1>Welcome to 21-Game</h1>
+
+<p>Rules: Here are the basic rules for playing the game of 21:</p>
+<p>1. The goal of the game is to have your cards add up to a higher value than the dealer's cards, without exceeding 21.</p>
+<p>2. Each player is dealt two cards, face up.</p>
+<p>3. Players can choose to "hit" and be dealt additional cards, or "stand" and keep their current hand.</p>
+<p>4. Face cards (kings, queens, and jacks) are worth 10 points, aces are worth 1 or 11 points, and all other cards are worth their face value.</p>
+<p>5. If a player's cards exceed 21, they lose.</p>
+
+<h2>Enter player names:</h2>
+<div>
+    <input type="text" @bind-value="newPlayerName" />
+    <button type="button" @onclick="AddNewPlayer">Add Player</button>
+</div>
+
+@if (numberOfPlayers > 0)
+{
+
+    <form>
+        @for (int i = 0; i < numberOfPlayers; i++)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Player @(i+1)</h5>
+                    <p>Hi! my name is @Game.players[i].name</p>
+                </div>
+            </div>
+        }
+
+    </form>
+}
+<h1>Welcome to 21-Game</h1>
+
+<button @onclick="@(() => NavigationManager.NavigateTo("/Game"))">Start Game</button>
+
+@code {
+    public string newPlayerName;
+    public int numberOfPlayers = 0;
+    public void AddNewPlayer()
+    {
+        Game.AddPlayer(newPlayerName);
+        Game.players[numberOfPlayers].point = 100;
+        numberOfPlayers++;
+        newPlayerName = string.Empty;
+        Game.SetUpGame();
+    }
+}
+
+
+
+
+
