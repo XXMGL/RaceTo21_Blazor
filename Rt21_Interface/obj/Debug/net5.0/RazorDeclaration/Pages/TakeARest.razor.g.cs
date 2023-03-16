@@ -82,8 +82,15 @@ using Rt21_Interface.Shared;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/fetchdata")]
-    public partial class FetchData : Microsoft.AspNetCore.Components.ComponentBase
+#nullable restore
+#line 5 "C:\Users\Aestuo\Desktop\RaceTo21_Blazor\Rt21_Interface\Pages\TakeARest.razor"
+using RaceTo21;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/TakeARest")]
+    public partial class TakeARest : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -91,30 +98,39 @@ using Rt21_Interface.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 37 "C:\Users\Aestuo\Desktop\RaceTo21_Blazor\Rt21_Interface\Pages\FetchData.razor"
+#line 47 "C:\Users\Aestuo\Desktop\RaceTo21_Blazor\Rt21_Interface\Pages\TakeARest.razor"
        
-    private WeatherForecast[] forecasts;
-
-    protected override async Task OnInitializedAsync()
+    public void UpdatePlayerStatus(Player player, PlayerStatus status) // Updates a player's status
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+        player.status = status; // Sets the player's status to the new status
+        if (status == PlayerStatus.quit) // If the new status is "quit"
+        {
+            Game.players.Remove(player); // Remove the player from the Game.players list
+        }
     }
 
-    public class WeatherForecast
+    public void StartNewRound() // Starts a new round
     {
-        public DateTime Date { get; set; }
+        // Remove players who have quit
+        Game.players.RemoveAll(p => p.status == PlayerStatus.quit); // Remove all players whose status is "quit"
 
-        public int TemperatureC { get; set; }
+        // Reset game status for active players
+        foreach (var player in Game.players.Where(p => p.status == PlayerStatus.active)) // Loops through all active players
+        {
+            player.score = 0; // Resets the player's score to 0
+            player.cards.Clear(); // Clears the player's cards list
+            player.status = PlayerStatus.active; // Sets the player's status to "active"
+        }
 
-        public string Summary { get; set; }
-
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+        // Start new round
+        NavigationManager.NavigateTo("/Game"); // Navigates to the "/Game" page
     }
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private HttpClient Http { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IJSRuntime JSRuntime { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
     }
 }
 #pragma warning restore 1591

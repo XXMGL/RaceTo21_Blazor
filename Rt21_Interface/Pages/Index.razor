@@ -12,16 +12,18 @@
 <p>4. Face cards (kings, queens, and jacks) are worth 10 points, aces are worth 1 or 11 points, and all other cards are worth their face value.</p>
 <p>5. If a player's cards exceed 21, they lose.</p>
 
+<!-- A heading to prompt the user to enter player names -->
 <h2>Enter player names:</h2>
+<!-- A div to hold the input field for adding new players and the corresponding button -->
 <div>
     <input type="text" @bind-value="newPlayerName" />
     <button type="button" @onclick="AddNewPlayer">Add Player</button>
 </div>
-
+<!-- Check if there is at least one player added, and if so, display a form to show each player's name -->
 @if (numberOfPlayers > 0)
 {
-
     <form>
+        <!-- Loop through the list of players and display their name using Bootstrap cards -->
         @for (int i = 0; i < numberOfPlayers; i++)
         {
             <div class="card">
@@ -31,22 +33,31 @@
                 </div>
             </div>
         }
-
     </form>
 }
-<h1>Welcome to 21-Game</h1>
 
+<!-- A heading to welcome users to the game -->
+<h1>Welcome to 21-Game</h1>
+<!-- A button to start the game -->
 <button @onclick="@(() => NavigationManager.NavigateTo("/Game"))">Start Game</button>
 
 @code {
+    // A string to store the name of the new player
     public string newPlayerName;
+    // An integer to keep track of the number of players
     public int numberOfPlayers = 0;
+    // A method to add a new player to the game
     public void AddNewPlayer()
     {
+        // Call the AddPlayer method of the Game class to add the new player to the list
         Game.AddPlayer(newPlayerName);
+        // Set the starting point of the new player to 100
         Game.players[numberOfPlayers].point = 100;
+        // Increment the number of players by 1
         numberOfPlayers++;
+        // Reset the new player name input field
         newPlayerName = string.Empty;
+        // Call the SetUpGame method of the Game class to set up the game for the new player
         Game.SetUpGame();
     }
 }

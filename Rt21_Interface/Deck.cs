@@ -40,11 +40,12 @@ namespace RaceTo21
                             cardLongName = "King";
                             break;
                         default:
-                            cardName = cardVal.ToString();//convert the integer to string
+                            cardName = cardVal.ToString("D2");//convert the integer to string
                             cardLongName = cardName;
                             break;
                     }
-                    cards.Add(new Card(cardName +" "+cardSuit.First<char>(), cardLongName + " of "+cardSuit));//Add each card to the list
+                    string imageUrl = $"card_assets/card_{cardSuit.ToLower()}_{cardName}.png";
+                    cards.Add(new Card(cardName +" "+cardSuit.First<char>(), cardLongName + " of "+cardSuit, imageUrl));//Add each card to the list
                 }
             }
         }

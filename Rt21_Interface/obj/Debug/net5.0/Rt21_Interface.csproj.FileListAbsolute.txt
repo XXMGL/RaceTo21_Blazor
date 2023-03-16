@@ -627,7 +627,7 @@ C:\Users\Aestuo\source\repos\Rt21_Interface\Rt21_Interface\obj\Debug\net5.0\Rt21
 C:\Users\Aestuo\source\repos\Rt21_Interface\Rt21_Interface\obj\Debug\net5.0\Rt21_Interface.dll
 C:\Users\Aestuo\source\repos\Rt21_Interface\Rt21_Interface\obj\Debug\net5.0\ref\Rt21_Interface.dll
 C:\Users\Aestuo\source\repos\Rt21_Interface\Rt21_Interface\obj\Debug\net5.0\Rt21_Interface.pdb
-C:\Users\Aestuo\source\repos\Rt21_Interface\Rt21_Interface\obj\Debug\net5.0\RazorDeclaration\Pages\Count.razor.g.cs
-C:\Users\Aestuo\source\repos\Rt21_Interface\Rt21_Interface\obj\Debug\net5.0\Razor\Pages\Count.razor.g.cs
-C:\Users\Aestuo\source\repos\Rt21_Interface\Rt21_Interface\obj\Debug\net5.0\RazorDeclaration\Pages\Counter - Copy.razor.g.cs
-C:\Users\Aestuo\source\repos\Rt21_Interface\Rt21_Interface\obj\Debug\net5.0\Razor\Pages\Counter - Copy.razor.g.cs
+C:\Users\Aestuo\source\repos\Rt21_Interface\Rt21_Interface\obj\Debug\net5.0\RazorDeclaration\Pages\Counter.razor.g.cs
+C:\Users\Aestuo\source\repos\Rt21_Interface\Rt21_Interface\obj\Debug\net5.0\RazorDeclaration\Pages\TakeARest.razor.g.cs
+C:\Users\Aestuo\source\repos\Rt21_Interface\Rt21_Interface\obj\Debug\net5.0\Razor\Pages\Counter.razor.g.cs
+C:\Users\Aestuo\source\repos\Rt21_Interface\Rt21_Interface\obj\Debug\net5.0\Razor\Pages\TakeARest.razor.g.cs

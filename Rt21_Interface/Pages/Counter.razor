@@ -1,0 +1,118 @@
+﻿@page "/Game"
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@using RaceTo21
+
+<h2>Player:</h2>
+@if (Game.players.Count > 0)
+{
+    <form>
+        @foreach (var player in Game.players)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Player @(Game.players.IndexOf(player)+1)</h5>
+                    <p>This is @player.name</p>
+                    <h6>Point: @player.point</h6>
+
+                    <p>Player Status: @player.status</p>
+                    @if (player.status == PlayerStatus.active)
+                    {
+                        <p>how many cards you want to draw?</p>
+                        <input type="text" @bind-value="player.NumOfCard" />
+                        <button type="button" @onclick="() => DrawCards(player)">Draw</button>
+                        <button type="button" @onclick="() => Stay(player)">Stay</button>
+                    }
+                    <p>Player's hand:</p>
+                    @foreach (var card in player.cards)
+                    {
+                        <img src="@card.ImgUrl" alt="@card.ImgUrl" />
+                        <p>@card.displayName</p>
+                    }
+                    <p>Player's Score: @player.score</p>
+                </div>
+            </div>
+        }
+
+    </form>
+}
+
+
+@code {
+
+    public void DrawCards(Player player)
+    {
+        int numOfCards = player.NumOfCard;
+        for (int i = 0; i < numOfCards; i++)
+        {
+            Card card = Game.deck.DealTopCard();//get the last card in the deck
+
+            player.cards.Add(card);//add that card to player's hand
+        }
+        player.score = Game.ScoreHand(player);
+        if (player.score > 21)
+        {
+            player.status = PlayerStatus.bust;
+            CheckWinners();
+        }
+        else if (player.score == 21)
+        {
+            player.status = PlayerStatus.win;
+            player.point += player.score;
+            JSRuntime.InvokeVoidAsync("alert", "Player " + player.name + " has won the game!");
+            NavigationManager.NavigateTo("/TakeARest"); //navigate to the next page
+        }
+        else
+        {
+            CheckWinners();
+        }
+    }
+
+    public void Stay(Player player)
+    {
+        player.status = PlayerStatus.stay;
+        CheckWinners();
+    }
+
+    private void CheckWinners()
+    {
+        bool allBust = true;
+        bool allStay = true;
+        Player winner = null;
+
+        foreach (var player in Game.players)
+        {
+            if (player.status == PlayerStatus.active)
+            {
+                allStay = false;
+            }
+
+            if (player.status == PlayerStatus.bust)
+            {
+                continue;
+            }
+
+            if (player.score <= 21)
+            {
+                allBust = false;
+
+                if (winner == null || player.score > winner.score)
+                {
+                    winner = player;
+                }
+            }
+        }
+
+        if (allBust)
+        {
+            JSRuntime.InvokeVoidAsync("alert", "All players have busted! There is no winner.");
+            NavigationManager.NavigateTo("/TakeARest"); //navigate to the next page
+        }
+        else if (allStay)
+        {
+            winner.point += winner.score;
+            JSRuntime.InvokeVoidAsync("alert", "Congratulation! The winner is Player " + (Game.players.IndexOf(winner) + 1) + " with a score of " + winner.score + "!");
+            NavigationManager.NavigateTo("/TakeARest"); //navigate to the next page
+        }
+    }
+}

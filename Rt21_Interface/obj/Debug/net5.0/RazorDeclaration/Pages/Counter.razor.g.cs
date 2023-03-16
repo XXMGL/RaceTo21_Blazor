@@ -83,14 +83,14 @@ using Rt21_Interface.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\Aestuo\Desktop\RaceTo21_Blazor\Rt21_Interface\Pages\Count.razor"
+#line 4 "C:\Users\Aestuo\Desktop\RaceTo21_Blazor\Rt21_Interface\Pages\Counter.razor"
 using RaceTo21;
 
 #line default
 #line hidden
 #nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/Game")]
-    public partial class Count : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class Counter : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -98,7 +98,7 @@ using RaceTo21;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 41 "C:\Users\Aestuo\Desktop\RaceTo21_Blazor\Rt21_Interface\Pages\Count.razor"
+#line 41 "C:\Users\Aestuo\Desktop\RaceTo21_Blazor\Rt21_Interface\Pages\Counter.razor"
        
 
     public void DrawCards(Player player)
